@@ -17,13 +17,14 @@ service = Service("/snap/bin/geckodriver")  # manually assign geckodriver to voi
 driver = webdriver.Firefox(service=service, options=options)
 url = "https://www.cnbc.com/world/?region=world"
 
-#print("[INFO] Opening page...")
+print("[INFO] Loading the web page...")
 driver.get(url)
 
 
 # Market Banner Section
 # Wait for market banner loading
 try:
+    print("[INFO] Extracting Market Banner...")
     # Wait for at least one MarketCard-container <a> occur
     WebDriverWait(driver, 15).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, "#market-data-scroll-container a.MarketCard-container"))
@@ -56,14 +57,15 @@ if not banner:
 
 # Write into file
 raw_path = "../data/raw_data/web_data.html"
-with open(raw_path, "a") as f:
+with open(raw_path, "w") as f:
     f.write(banner.prettify())
-#print(f"[INFO] Market Banner HTML saved to {raw_path[:-13]}")
+print(f"[INFO] Market Banner HTML saved to {raw_path}")
 
 
 
 # Latest News Section
 latest_news_section = soup.find('div', class_="LatestNews-isHomePage LatestNews-isIntlHomepage")
+print("[INFO] Extracting Latest News...")
 
 if not latest_news_section:
     print("[WARNING] Latest News not found!")
@@ -75,7 +77,7 @@ if not latest_news_section:
 # Write into file
 with open(raw_path, "a") as f:
     f.write(latest_news_section.prettify())
-#print(f"[INFO] Latest News HTML saved to {raw_path[:-13]}")
+print(f"[INFO] Latest News HTML saved to {raw_path}")
 
 
 driver.quit()
