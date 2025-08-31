@@ -1,3 +1,5 @@
+# Po-Hao Chen
+# USC ID: 4213309111
 from bs4 import BeautifulSoup
 import csv
 

@@ -1,3 +1,5 @@
+# Po-Hao Chen
+# USC ID: 4213309111
 import requests
 from bs4 import BeautifulSoup
 
